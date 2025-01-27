@@ -1,0 +1,58 @@
+@props(['link', 'title', 'slug', 'modalstatus'])
+<div x-data="{link: {{ $modalstatus ? 'true' : 'false' }} }" :class="admin ? 'hover:border-green-500' : '' " class=" relative border border-transparent flex flex-col gap-4 justify-center items-center py-8 px-4">
+    <button x-show="admin" x-show="admin" @click="link = true" 
+        class=" absolute top-14 right-8 w-4 aspect-square hover:text-green-500 duration-300">
+        <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M0 14.2V18h3.8l11-11.1L11 3.1 0 14.2ZM17.7 4c.4-.4.4-1 0-1.4L15.4.3c-.4-.4-1-.4-1.4 0l-1.8 1.8L16 5.9 17.7 4Z" fill="currentColor" fill-rule="evenodd" class="fill-000000"></path></svg>
+    </button>
+
+    {{-- Tag Edit --}}
+    @include('admin.link.edit')
+
+    <p class=" text-2xl font-black">{{$title ?? 'Link Kami'}}</p>
+    <div class=" w-10 h-[4px] bg-amber-400"></div>
+    <div class=" flex flex-col w-full pt-2 gap-4">
+        @foreach ($link as $item)
+            <a href="{{ $item->url ?? '' }}">
+                @if ($item->type === 'twiter')
+                    <button style="background-color: #26a7de" aria-label="Youtube" class="w-full h-12 flex flex-row items-center gap-4 p-2 rounded-full hover:scale-95 duration-300 relative">
+                        <div class=" absolute top-2 left-2 w-8 h-8">
+                            <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"><path d="M256 0c141.29 0 256 114.71 256 256 0 141.29-114.71 256-256 256C114.71 512 0 397.29 0 256 0 114.71 114.71 0 256 0Zm-45.091 392.158c113.283 0 175.224-93.87 175.224-175.223 0-2.682 0-5.364-.128-7.919a126.156 126.156 0 0 0 30.779-31.928c-10.983 4.853-22.861 8.174-35.377 9.706 12.772-7.663 22.478-19.668 27.076-34.099a124.727 124.727 0 0 1-39.081 14.942c-11.239-12.005-27.203-19.412-44.955-19.412-33.972 0-61.558 27.586-61.558 61.558 0 4.853.511 9.578 1.66 14.048-51.213-2.554-96.552-27.075-126.947-64.368a61.772 61.772 0 0 0-8.302 30.907 61.308 61.308 0 0 0 27.459 51.213c-10.09-.255-19.541-3.065-27.842-7.662v.766c0 29.885 21.2 54.661 49.425 60.409a61.42 61.42 0 0 1-16.219 2.171c-3.96 0-7.791-.383-11.622-1.15 7.79 24.521 30.523 42.274 57.471 42.784-21.073 16.476-47.637 26.31-76.501 26.31-4.981 0-9.834-.256-14.687-.894 26.948 17.624 59.387 27.841 94.125 27.841Z" fill="#ffffff" class="fill-000000"></path></svg>
+                        </div>
+                        <p class="flex-1 font-medium text-white">X</p>
+                    </button>
+                @elseif ($item->type === 'tiktok')
+                    <button style="background-color:black" class="w-full h-12 flex flex-row items-center gap-4 p-2 rounded-full hover:scale-95 duration-300 relative">
+                        <div class=" absolute top-2 left-2 w-8 h-8">
+                            <svg data-name="Layer 1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 0C114.615 0 0 114.615 0 256s114.615 256 256 256 256-114.615 256-256S397.385 0 256 0Zm129.62 232.382c-27.184 0-53.634-8.822-74-23.75l-.162 101.5a92.457 92.457 0 1 1-80.178-91.721v49.845a43.657 43.657 0 1 0 31.288 41.876V109.333h51.275a71.773 71.773 0 0 0 71.774 71.773Z" fill="#ffffff" class="fill-000000"></path></svg>
+                        </div>
+                        <p class="flex-1 font-medium text-white">Tiktok</p>
+                    </button>
+                @elseif ($item->type === 'youtube')
+                    <button style="background-color: red" aria-label="Youtube" class="w-full h-12 flex flex-row items-center gap-4 p-2 rounded-full hover:scale-95 duration-300 relative">
+                        <div class=" absolute top-2 left-2 w-8 h-8">
+                            <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"><path d="M256 0c141.29 0 256 114.71 256 256 0 141.29-114.71 256-256 256C114.71 512 0 397.29 0 256 0 114.71 114.71 0 256 0Zm153.315 178.978c-3.68-13.769-14.522-24.61-28.29-28.29C356.067 144 256 144 256 144s-100.067 0-125.025 6.688c-13.765 3.68-24.61 14.521-28.29 28.29C96 203.933 96 256.002 96 256.002s0 52.067 6.685 77.02c3.68 13.769 14.525 24.614 28.29 28.293C155.933 368 256 368 256 368s100.067 0 125.025-6.685c13.768-3.679 24.61-14.524 28.29-28.293C416 308.069 416 256.002 416 256.002s0-52.069-6.685-77.024ZM223.999 304.003v-96.002l83.137 48.001-83.137 48.001Z" fill="#ffffff" class="fill-000000"></path></svg>
+                        </div>
+                        <p class="flex-1 font-medium text-white">Youtube</p>
+                    </button>
+                @elseif ($item->type === 'facebook')
+                    <button style="background-color: #1877F2" aria-label="Facebook" class="w-full h-12 flex flex-row items-center gap-4 p-2 rounded-full hover:scale-95 duration-300 relative">
+                        <div class=" absolute top-2 left-2 w-8 h-8">
+                            <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                                <path d="M512 256C512 114.615 397.385 0 256 0S0 114.615 0 256c0 127.777 93.616 233.685 216 252.89V330h-65v-74h65v-56.4c0-64.16 38.219-99.6 96.695-99.6 28.009 0 57.305 5 57.305 5v63h-32.281C305.918 168 296 187.733 296 207.978V256h71l-11.35 74H296v178.89C418.385 489.685 512 383.777 512 256Z" fill="#ffffff" fill-rule="nonzero" class="fill-1877f2"></path>
+                                <path d="M355.65 330 367 256h-71v-48.022c0-20.245 9.917-39.978 41.719-39.978H370v-63s-29.297-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.89a257.912 257.912 0 0 0 40 3.11c13.608 0 26.966-1.065 40-3.11V330h59.65Z" fill="none"></path>
+                            </svg>
+                        </div>
+                        <p class="flex-1 font-medium text-white">Facebook</p>
+                    </button>
+                @elseif ($item->type === 'instagram')
+                    <button style="background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);" aria-label="Instagram" class="w-full h-12 flex flex-row items-center gap-4 p-2 rounded-full hover:scale-95 duration-300 relative">
+                        <div class=" absolute top-2 left-2 w-8 h-8">
+                            <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"><path d="M256 0c141.29 0 256 114.71 256 256 0 141.29-114.71 256-256 256C114.71 512 0 397.29 0 256 0 114.71 114.71 0 256 0Zm0 96c-43.453 0-48.902.184-65.968.963-17.03.777-28.661 3.482-38.839 7.437-10.521 4.089-19.444 9.56-28.339 18.455-8.895 8.895-14.366 17.818-18.455 28.339-3.955 10.177-6.659 21.808-7.437 38.838C96.184 207.098 96 212.547 96 256s.184 48.902.962 65.968c.778 17.03 3.482 28.661 7.437 38.838 4.089 10.521 9.56 19.444 18.455 28.34 8.895 8.895 17.818 14.366 28.339 18.455 10.178 3.954 21.809 6.659 38.839 7.436 17.066.779 22.515.963 65.968.963s48.902-.184 65.968-.963c17.03-.777 28.661-3.482 38.838-7.436 10.521-4.089 19.444-9.56 28.34-18.455 8.895-8.896 14.366-17.819 18.455-28.34 3.954-10.177 6.659-21.808 7.436-38.838.779-17.066.963-22.515.963-65.968s-.184-48.902-.963-65.968c-.777-17.03-3.482-28.661-7.436-38.838-4.089-10.521-9.56-19.444-18.455-28.339-8.896-8.895-17.819-14.366-28.34-18.455-10.177-3.955-21.808-6.66-38.838-7.437C304.902 96.184 299.453 96 256 96Zm0 28.829c42.722 0 47.782.163 64.654.933 15.6.712 24.071 3.318 29.709 5.509 7.469 2.902 12.799 6.37 18.397 11.969 5.6 5.598 9.067 10.929 11.969 18.397 2.191 5.638 4.798 14.109 5.509 29.709.77 16.872.933 21.932.933 64.654 0 42.722-.163 47.782-.933 64.654-.711 15.6-3.318 24.071-5.509 29.709-2.902 7.469-6.369 12.799-11.969 18.397-5.598 5.6-10.928 9.067-18.397 11.969-5.638 2.191-14.109 4.798-29.709 5.509-16.869.77-21.929.933-64.654.933-42.725 0-47.784-.163-64.654-.933-15.6-.711-24.071-3.318-29.709-5.509-7.469-2.902-12.799-6.369-18.398-11.969-5.599-5.598-9.066-10.928-11.968-18.397-2.191-5.638-4.798-14.109-5.51-29.709-.77-16.872-.932-21.932-.932-64.654 0-42.722.162-47.782.932-64.654.712-15.6 3.319-24.071 5.51-29.709 2.902-7.468 6.369-12.799 11.968-18.397 5.599-5.599 10.929-9.067 18.398-11.969 5.638-2.191 14.109-4.797 29.709-5.509 16.872-.77 21.932-.933 64.654-.933Zm0 49.009c-45.377 0-82.162 36.785-82.162 82.162 0 45.377 36.785 82.162 82.162 82.162 45.377 0 82.162-36.785 82.162-82.162 0-45.377-36.785-82.162-82.162-82.162Zm0 135.495c-29.455 0-53.333-23.878-53.333-53.333s23.878-53.333 53.333-53.333 53.333 23.878 53.333 53.333-23.878 53.333-53.333 53.333Zm104.609-138.741c0 10.604-8.597 19.199-19.201 19.199-10.603 0-19.199-8.595-19.199-19.199 0-10.604 8.596-19.2 19.199-19.2 10.604 0 19.201 8.596 19.201 19.2Z" fill="#ffffff" class="fill-000000"></path></svg>
+                        </div>
+                        <p class="flex-1 font-medium text-white">Instagram</p>
+                    </button>
+                @endif
+            </a>
+        @endforeach
+    </div>
+</div>
