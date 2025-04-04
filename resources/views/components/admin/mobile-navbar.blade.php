@@ -26,7 +26,7 @@
     </div>
     <div 
         class="fixed w-[calc(100vw-32px)] bg-white shadow-md shadow-black/20 bottom-[44px] rounded-t-md z-10 transition-all duration-300 overflow-hidden border border-neutral-300"
-        :class="isOpen ? ' h-36 pb-7' : 'h-0'">
+        :class="isOpen ? ' h-48 pb-7' : 'h-0'">
         <div class=" grid grid-cols-2 p-4 gap-4 text-sm">
             <x-admin.mobile-navbutton route="dashboard" :active="'dashboard'">
                 <x-slot:svg>

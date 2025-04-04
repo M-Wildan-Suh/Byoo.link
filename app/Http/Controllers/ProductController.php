@@ -72,6 +72,7 @@ class ProductController extends Controller
      */
     public function store($slug, Request $request)
     {
+        
         $data = Web::where('url', $slug)->first();
 
         if ($data->webType->type === "Minicompro") {

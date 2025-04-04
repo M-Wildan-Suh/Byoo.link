@@ -15,10 +15,12 @@
         {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         <link href="{{ asset('build/assets/app.css') }}" rel="stylesheet" />
     </head>
-    <body x-data="{ loading: true }" 
+    <body class="font-sans antialiased"
+        x-data="{ loading: true }"
         x-init="setTimeout(() => loading = false, 1000)"
         @beforeunload.window="loading = true"
-        @load.window="setTimeout(() => loading = false, 1000)">
+        @load.window="setTimeout(() => loading = false, 1000)"
+        @pageshow.window="loading = false">
         <!-- Loading overlay -->
         <div x-show="loading" 
             class="fixed inset-0 z-50 flex items-center justify-center bg-white"
